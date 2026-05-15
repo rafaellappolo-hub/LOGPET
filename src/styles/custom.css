@@ -1,0 +1,9 @@
+/* Scroll suave para navegação */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ajuste para o scroll devido ao header fixo */
+section {
+  scroll-margin-top: 80px;
+}
