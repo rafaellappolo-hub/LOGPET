@@ -1,5 +1,6 @@
 import * as Progress from '@radix-ui/react-progress';
-import { Heart } from 'lucide-react';
+import { Heart, Mail, MapPin, PackageCheck, X } from 'lucide-react';
+import { useState } from 'react';
 
 const donationItems = [
   {
@@ -26,6 +27,8 @@ const donationItems = [
 ];
 
 export default function Donations() {
+  const [showDonationGuide, setShowDonationGuide] = useState(false);
+
   return (
     <section id="doações" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,10 +83,66 @@ export default function Donations() {
         </div>
 
         <div className="text-center">
-          <button className="bg-purple-500 hover:bg-purple-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105">
+          <button
+            type="button"
+            onClick={() => setShowDonationGuide((isVisible) => !isVisible)}
+            aria-expanded={showDonationGuide}
+            aria-controls="guia-doacao"
+            className="bg-purple-500 hover:bg-purple-600 text-white px-10 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
+          >
             Fazer uma Doação
           </button>
         </div>
+
+        {showDonationGuide && (
+          <div
+            id="guia-doacao"
+            className="mt-10 bg-white rounded-2xl shadow-xl p-6 sm:p-8 max-w-4xl mx-auto"
+          >
+            <div className="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900">Como fazer uma doação</h3>
+                <p className="text-gray-600 mt-2">
+                  Escolha uma das formas abaixo e entre em contato para combinarmos a entrega.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDonationGuide(false)}
+                aria-label="Fechar orientações de doação"
+                className="p-2 rounded-full text-gray-500 hover:text-purple-600 hover:bg-purple-50 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-5 text-left">
+              <div className="border border-purple-100 rounded-xl p-5">
+                <PackageCheck className="w-7 h-7 text-purple-500 mb-3" />
+                <h4 className="font-bold text-gray-900 mb-2">Separe os itens</h4>
+                <p className="text-sm text-gray-600">
+                  Ração, medicamentos, cobertores e materiais de limpeza são sempre bem-vindos.
+                </p>
+              </div>
+
+              <div className="border border-purple-100 rounded-xl p-5">
+                <Mail className="w-7 h-7 text-purple-500 mb-3" />
+                <h4 className="font-bold text-gray-900 mb-2">Fale com a LOGPET</h4>
+                <p className="text-sm text-gray-600">
+                  Envie uma mensagem para confirmar o melhor horário de entrega ou retirada.
+                </p>
+              </div>
+
+              <div className="border border-purple-100 rounded-xl p-5">
+                <MapPin className="w-7 h-7 text-purple-500 mb-3" />
+                <h4 className="font-bold text-gray-900 mb-2">Combine a entrega</h4>
+                <p className="text-sm text-gray-600">
+                  Leve sua doação até um ponto de coleta ou solicite orientação para retirada.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
